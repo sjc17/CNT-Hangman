@@ -1,0 +1,7 @@
+C:\Users\steve\Documents\workspace\consolehangman\consolehangman\bin\Debug\consolehangman.exe.config
+C:\Users\steve\Documents\workspace\consolehangman\consolehangman\bin\Debug\consolehangman.exe
+C:\Users\steve\Documents\workspace\consolehangman\consolehangman\bin\Debug\consolehangman.pdb
+C:\Users\steve\Documents\workspace\consolehangman\consolehangman\obj\Debug\consolehangman.csprojAssemblyReference.cache
+C:\Users\steve\Documents\workspace\consolehangman\consolehangman\obj\Debug\consolehangman.csproj.CoreCompileInputs.cache
+C:\Users\steve\Documents\workspace\consolehangman\consolehangman\obj\Debug\consolehangman.exe
+C:\Users\steve\Documents\workspace\consolehangman\consolehangman\obj\Debug\consolehangman.pdb
