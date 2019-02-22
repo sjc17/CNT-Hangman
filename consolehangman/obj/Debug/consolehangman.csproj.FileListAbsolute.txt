@@ -5,3 +5,5 @@ C:\Users\steve\Documents\workspace\consolehangman\consolehangman\obj\Debug\conso
 C:\Users\steve\Documents\workspace\consolehangman\consolehangman\obj\Debug\consolehangman.csproj.CoreCompileInputs.cache
 C:\Users\steve\Documents\workspace\consolehangman\consolehangman\obj\Debug\consolehangman.exe
 C:\Users\steve\Documents\workspace\consolehangman\consolehangman\obj\Debug\consolehangman.pdb
+C:\Users\steve\Documents\workspace\consolehangman\consolehangman\bin\Debug\Newtonsoft.Json.dll
+C:\Users\steve\Documents\workspace\consolehangman\consolehangman\obj\Debug\consolehangman.csproj.CopyComplete
