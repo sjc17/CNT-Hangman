@@ -21,13 +21,18 @@ namespace consolehangman
             // <MOVIE TITLE> = GetWord();
 
             //////TEST CASE
-            string test = "Pirates of the Caribbean: Curse of the Black Pearl";
+            string test = "Dragon Ball Super: Broly";
             //////TEST CASE
 
             //Player interactions with GDIDrawer here
             PlayWindow(ref HangingPost, test);
 
-            Console.Read();
+            //Return selected letter
+            Point Rclick;
+            do
+            {
+                Console.Write(SelectLetter(ref HangingPost));
+            } while (!HangingPost.GetLastMouseRightClick(out Rclick));
 
 
             /*SAMPLE TEMPLATE OF MAIN PROGRAM
@@ -81,6 +86,14 @@ namespace consolehangman
             for (int r = 1; r <= 40; r++)
             {
                 for (double theta = 0.0; theta < 2 * Math.PI; theta += 0.0174533 / 2)
+                {
+                    Canvas.SetBBPixel((int)(r * Math.Cos(theta) + a), (int)(r * Math.Sin(theta) + b), Color.Yellow);
+                }
+            }
+            //rays... y= m(x-a) + b
+            for (double theta = 0; theta < 2 * Math.PI; theta += Math.PI / 6)
+            {
+                for (int r = 50; r <= 70; r++)
                 {
                     Canvas.SetBBPixel((int)(r * Math.Cos(theta) + a), (int)(r * Math.Sin(theta) + b), Color.Yellow);
                 }
@@ -188,8 +201,8 @@ namespace consolehangman
         {
             title = title.ToUpper();
             int length = title.Length;
-
-            //Draw blank spaces if word fits in screen.  Text centered at 300 < x < 800, 50 < y < 550
+            LetterButtons(ref HangingPost);
+            // Draw blank spaces if word fits in screen.  Text centered at 300 < x < 800, 50 < y < 550
             if (length <= 20)
             {
                 string blanks = "";
@@ -214,10 +227,10 @@ namespace consolehangman
                 }
                 HangingPost.AddText(blanks, 22, 300, 50, 500, 400, Color.Black);
             }
-            //Slightly longer titles
+            // Longer titles
             else if (length > 20 & length <= 35)
             {
-                // search for space in title close to index 15, and split string into 2
+                // Search for space in title close to index 15, and split string into 2
                 string line1, line2;
                 int space_index = title.IndexOf(' ', 15);
                 if (space_index > 20 || space_index == -1)
@@ -366,6 +379,80 @@ namespace consolehangman
                 HangingPost.AddText(blanks3, 22, 300, 50, 500, 550, Color.Black);
             }
         }
-    }
+
+        // Draw letter buttons
+        static void LetterButtons(ref CDrawer HangingPost)
+        {
+            // Create Buttons A-M
+            for (int a = 0; a < 13; a++)
+            {
+                HangingPost.AddRectangle((a * 40) + 250, 10, 30, 30, Color.Gray);
+                HangingPost.AddText(((char)(a + 65)).ToString() + " ", 16, (a*40) + 250, 10, 30, 30, Color.Black);
+            }
+            // Create Buttons N-Z
+            for (int a = 0; a < 13; a++)
+            {
+                HangingPost.AddRectangle((a * 40) + 250, 50, 30, 30, Color.Gray);
+                HangingPost.AddText(((char)(a + 78)).ToString() + " ", 16, (a * 40) + 250, 50, 30, 30, Color.Black);
+            }
+        }
+
+        // Player chooses letter
+        static string SelectLetter(ref CDrawer HangingPost)
+        {
+            string selection = "";
+            string[] letter = new string[26];
+            int[] xmin_coord = new int[26];
+            int[] ymin_coord = new int[26];
+            int[] xmax_coord = new int[26];
+            int[] ymax_coord = new int[26];
+            // Populate string array with A-Z
+            for (int i = 0; i < 26; i++)
+            {
+                letter[i] = ((char)(i + 65)).ToString();
+            }
+            int counter = 0;
+            int xinit = 250;
+            // Create 4 arrays that store the button locations with each indeci corresponding to previous A-Z array
+            // ie: letter[0] = A, and xmin_coord[0] = left side of button
+            while (counter < 13)
+            {
+                xmin_coord[counter] = xinit;
+                xmax_coord[counter] = xinit + 30;
+                xmin_coord[counter + 13] = xinit;
+                xmax_coord[counter + 13] = xinit + 30;
+                counter++;
+                xinit += 40;
+            }
+            for (int i = 0; i < 13; i++)
+            {
+                ymin_coord[i] = 10;
+                ymin_coord[i + 13] = 50;
+                ymax_coord[i] = 40;
+                ymax_coord[i + 13] = 80;
+            }
+            // Upon clicking, iterate through arrays and return selected character
+            Point Lclick;
+            bool valid_click = false;
+            while (!valid_click)
+            {
+                if (HangingPost.GetLastMouseLeftClick(out Lclick))
+                {
+                    for (int i = 0; i < 26; i++)
+                    {
+                        if (Lclick.X > xmin_coord[i] && Lclick.X < xmax_coord[i] && Lclick.Y > ymin_coord[i] && Lclick.Y < ymax_coord[i])
+                        {
+                            HangingPost.AddLine(xmin_coord[i], ymin_coord[i], xmax_coord[i], ymax_coord[i], Color.Red, 2);
+                            HangingPost.AddLine(xmax_coord[i], ymin_coord[i], xmin_coord[i], ymax_coord[i], Color.Red, 2);
+                            HangingPost.Render();
+                            selection = letter[i];
+                            valid_click = true;
+                        }
+                    }
+                }
+                
+            }
+            return selection;
+        }
     }
 }
