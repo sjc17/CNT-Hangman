@@ -2,19 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Net.Http;
 using System.Threading.Tasks;
+using System.Net.Http;
 using Newtonsoft.Json;
-
 
 namespace consolehangman
 {
-    class Program
+    class MovieAPI
     {
-        static void Main(string[] args)
-        {
-        }
-        private static string GetWord()
+        public static string GetWord()
         {
             bool success = false;
             string movieJson;
@@ -56,8 +52,8 @@ namespace consolehangman
                 {
                     return null;
                 }
-            } 
-            
+            }
+
         }
         public class Rating
         {
