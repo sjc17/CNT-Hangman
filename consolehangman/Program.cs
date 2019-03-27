@@ -18,14 +18,16 @@ namespace consolehangman
             //Game Title Screen
             MainMenu(ref HangingPost);
 
-            // <MOVIE TITLE> = GetWord();
+            string Title = MovieAPI.GetWord();
+
+            System.Threading.Thread.Sleep(1000);        //Add delay to let API get proper movie title
 
             //////TEST CASE
-            string test = "Dragon Ball Super: Broly";
+            //string test = "Pirates of the Carribean: Curse of the Black Pearl";
             //////TEST CASE
 
             //Player interactions with GDIDrawer here
-            PlayWindow(ref HangingPost, test);
+            PlayWindow(ref HangingPost, Title);
 
             //Return selected letter
             Point Rclick;
@@ -174,25 +176,22 @@ namespace consolehangman
         // Add a stick figure to drawing window with head at (x, y) in cheering pose or idle pose
         static void AddStickMan(int x, int y, string color, ref CDrawer HangingPost, bool cheer)
         {
+            HangingPost.AddCenteredEllipse(x, y, 50, 50, Color.FromName(color));            //head
+            HangingPost.AddLine(x, y + 25, x, y + 95, Color.FromName(color), 5);            //torso
+            HangingPost.AddLine(x, y + 95, x - 15, y + 180, Color.FromName(color), 5);      //left leg
+            HangingPost.AddLine(x, y + 95, x + 15, y + 180, Color.FromName(color), 5);      //right leg
+
             if (cheer)
-            {
-                HangingPost.AddCenteredEllipse(x, y, 50, 50, Color.FromName(color));            //head
-                HangingPost.AddLine(x, y + 25, x, y + 95, Color.FromName(color), 5);            //torso
+            {              
                 HangingPost.AddLine(x, y + 40, x - 40, y - 5, Color.FromName(color), 5);        //left upper arm
                 HangingPost.AddLine(x - 40, y - 5, x - 60, y - 40, Color.FromName(color), 5);   //left lower arm
                 HangingPost.AddLine(x, y + 40, x + 40, y - 5, Color.FromName(color), 5);        //right upper arm
                 HangingPost.AddLine(x + 40, y - 5, x + 60, y - 40, Color.FromName(color), 5);   //right lower arm
-                HangingPost.AddLine(x, y + 95, x - 15, y + 180, Color.FromName(color), 5);      //left leg
-                HangingPost.AddLine(x, y + 95, x + 15, y + 180, Color.FromName(color), 5);      //right leg
             }
-            if (!cheer)
+            else
             {
-                HangingPost.AddCenteredEllipse(x, y, 50, 50, Color.FromName(color));            //head
-                HangingPost.AddLine(x, y + 25, x, y + 95, Color.FromName(color), 5);            //torso
                 HangingPost.AddLine(x, y + 30, x - 25, y + 105, Color.FromName(color), 5);      //left arm
                 HangingPost.AddLine(x, y + 30, x + 25, y + 105, Color.FromName(color), 5);      //right arm
-                HangingPost.AddLine(x, y + 95, x - 15, y + 180, Color.FromName(color), 5);      //left leg
-                HangingPost.AddLine(x, y + 95, x + 15, y + 180, Color.FromName(color), 5);      //right leg
             }
         }
 
@@ -202,33 +201,24 @@ namespace consolehangman
             title = title.ToUpper();
             int length = title.Length;
             LetterButtons(ref HangingPost);
-            // Draw blank spaces if word fits in screen.  Text centered at 300 < x < 800, 50 < y < 550
             if (length <= 20)
             {
-                string blanks = "";
+                int xpos = 300;
+                int ypos = 200;
                 foreach (char ch in title)
                 {
-                    if (ch == ' ')
+                    if (char.IsLetter(ch))
                     {
-                        blanks += "   ";
-                    }
-                    else if (ch == ':')
-                    {
-                        blanks += ":";
-                    }
-                    else if (char.IsDigit(ch))
-                    {
-                        blanks += ch;
+                        HangingPost.AddText("_", 28, xpos, ypos, 28, 28, Color.Black);
                     }
                     else
                     {
-                        blanks += "_ ";
+                        HangingPost.AddText(ch.ToString(), 22, xpos, ypos - 4, 24, 24, Color.Black);
                     }
+                    xpos += 28;
                 }
-                HangingPost.AddText(blanks, 22, 300, 50, 500, 400, Color.Black);
             }
-            // Longer titles
-            else if (length > 20 & length <= 35)
+            else if (length < 35)
             {
                 // Search for space in title close to index 15, and split string into 2
                 string line1, line2;
@@ -244,51 +234,37 @@ namespace consolehangman
                 line1 = title.Substring(0, space_index);
                 line2 = title.Substring(space_index);
 
-                string blanks1 = "";
+                int xpos = 300;
+                int ypos1 = 200;
+                int ypos2 = 260;
+
                 foreach (char ch in line1)
                 {
-                    if (ch == ' ')
+                    if (char.IsLetter(ch))
                     {
-                        blanks1 += "   ";
-                    }
-                    else if (ch == ':')
-                    {
-                        blanks1 += ":";
-                    }
-                    else if (char.IsDigit(ch))
-                    {
-                        blanks1 += ch;
+                        HangingPost.AddText("_", 28, xpos, ypos1, 28, 28, Color.Black);
                     }
                     else
                     {
-                        blanks1 += "_ ";
+                        HangingPost.AddText(ch.ToString(), 22, xpos, ypos1 - 4, 24, 24, Color.Black);
                     }
+                    xpos += 28;
                 }
-                HangingPost.AddText(blanks1, 22, 300, 50, 500, 250, Color.Black);
-                string blanks2 = "";
+                xpos = 300 - 28;
                 foreach (char ch in line2)
                 {
-                    if (ch == ' ')
+                    if (char.IsLetter(ch))
                     {
-                        blanks2 += "   ";
-                    }
-                    else if (ch == ':')
-                    {
-                        blanks2 += ":";
-                    }
-                    else if (char.IsDigit(ch))
-                    {
-                        blanks2 += ch;
+                        HangingPost.AddText("_", 28, xpos, ypos2, 28, 28, Color.Black);
                     }
                     else
                     {
-                        blanks2 += "_ ";
+                        HangingPost.AddText(ch.ToString(), 22, xpos, ypos2 - 4, 24, 24, Color.Black);
                     }
+                    xpos += 28;
                 }
-                HangingPost.AddText(blanks2, 22, 300, 50, 500, 400, Color.Black);
             }
-            //Really long titles, do I need to go more?
-            else if (length > 35 && length <= 55)
+            else if (length <= 55)
             {
                 string line1, line2, line3;
                 int space_index1, space_index2;
@@ -314,70 +290,51 @@ namespace consolehangman
                 line2 = title.Substring(space_index1, space_index2 - space_index1);
                 line3 = title.Substring(space_index2);
 
-                string blanks1 = "";
+                int xpos = 300;
+                int ypos1 = 180;
+                int ypos2 = 240;
+                int ypos3 = 300;
+
                 foreach (char ch in line1)
                 {
-                    if (ch == ' ')
+                    if (char.IsLetter(ch))
                     {
-                        blanks1 += "   ";
-                    }
-                    else if (ch == ':')
-                    {
-                        blanks1 += ":";
-                    }
-                    else if (char.IsDigit(ch))
-                    {
-                        blanks1 += ch;
+                        HangingPost.AddText("_", 28, xpos, ypos1, 28, 28, Color.Black);
                     }
                     else
                     {
-                        blanks1 += "_ ";
+                        HangingPost.AddText(ch.ToString(), 22, xpos, ypos1 - 4, 24, 24, Color.Black);
                     }
+                    xpos += 28;
                 }
-                HangingPost.AddText(blanks1, 22, 300, 50, 500, 250, Color.Black);
-                string blanks2 = "";
+                xpos = 300 - 28;
                 foreach (char ch in line2)
                 {
-                    if (ch == ' ')
+                    if (char.IsLetter(ch))
                     {
-                        blanks2 += "   ";
-                    }
-                    else if (ch == ':')
-                    {
-                        blanks2 += ":";
-                    }
-                    else if (char.IsDigit(ch))
-                    {
-                        blanks2 += ch;
+                        HangingPost.AddText("_", 28, xpos, ypos2, 28, 28, Color.Black);
                     }
                     else
                     {
-                        blanks2 += "_ ";
+                        HangingPost.AddText(ch.ToString(), 22, xpos, ypos2 - 4, 24, 24, Color.Black);
                     }
+                    xpos += 28;
                 }
-                HangingPost.AddText(blanks2, 22, 300, 50, 500, 400, Color.Black);
-                string blanks3 = "";
+                xpos = 300 - 28;
                 foreach (char ch in line3)
                 {
-                    if (ch == ' ')
+                    if (char.IsLetter(ch))
                     {
-                        blanks3 += "   ";
-                    }
-                    else if (ch == ':')
-                    {
-                        blanks3 += ":";
-                    }
-                    else if (char.IsDigit(ch))
-                    {
-                        blanks3 += ch;
+                        HangingPost.AddText("_", 28, xpos, ypos3, 28, 28, Color.Black);
                     }
                     else
                     {
-                        blanks3 += "_ ";
+                        HangingPost.AddText(ch.ToString(), 22, xpos, ypos3 - 4, 24, 24, Color.Black);
                     }
+                    xpos += 28;
                 }
-                HangingPost.AddText(blanks3, 22, 300, 50, 500, 550, Color.Black);
             }
+            HangingPost.Render();
         }
 
         // Draw letter buttons
@@ -396,61 +353,70 @@ namespace consolehangman
                 HangingPost.AddText(((char)(a + 78)).ToString() + " ", 16, (a * 40) + 250, 50, 30, 30, Color.Black);
             }
         }
+        
+        //Declare Button class
+        public class Button
+        {
+            public char alpha { get; set; }
+            public int xMin_coord { get; set; }
+            public int xMax_coord { get; set; }
+            public int yMin_coord { get; set; }
+            public int yMax_coord { get; set; }
+        }
 
         // Player chooses letter
-        static string SelectLetter(ref CDrawer HangingPost)
+        static char SelectLetter(ref CDrawer HangingPost)
         {
-            string selection = "";
-            string[] letter = new string[26];
-            int[] xmin_coord = new int[26];
-            int[] ymin_coord = new int[26];
-            int[] xmax_coord = new int[26];
-            int[] ymax_coord = new int[26];
-            // Populate string array with A-Z
+            char selection = ' ';
+            Point click;
+            bool valid_click = false;
+            int counter = 0;
+            // Generate buttons
+            var button = new Button[26];    //create array of class Button
             for (int i = 0; i < 26; i++)
             {
-                letter[i] = ((char)(i + 65)).ToString();
-            }
-            int counter = 0;
-            int xinit = 250;
-            // Create 4 arrays that store the button locations with each indeci corresponding to previous A-Z array
-            // ie: letter[0] = A, and xmin_coord[0] = left side of button
-            while (counter < 13)
-            {
-                xmin_coord[counter] = xinit;
-                xmax_coord[counter] = xinit + 30;
-                xmin_coord[counter + 13] = xinit;
-                xmax_coord[counter + 13] = xinit + 30;
+                button[i] = new Button();               //construct new Button for each element in array
+                button[i].alpha = (char)(i + 65);
+                if (i < 13)
+                {
+                    button[i].xMin_coord = 250 + counter*40;
+                    button[i].xMax_coord = button[i].xMin_coord + 30;
+                    button[i].yMin_coord = 10;
+                    button[i].yMax_coord = 40;                        
+                }
+                else
+                {
+                    button[i].xMin_coord = 250 + counter * 40;
+                    button[i].xMax_coord = button[i].xMin_coord + 30;
+                    button[i].yMin_coord = 50;
+                    button[i].yMax_coord = 80;
+                }
                 counter++;
-                xinit += 40;
+                if (counter >= 13)
+                {
+                    counter = 0;
+                }
             }
-            for (int i = 0; i < 13; i++)
-            {
-                ymin_coord[i] = 10;
-                ymin_coord[i + 13] = 50;
-                ymax_coord[i] = 40;
-                ymax_coord[i + 13] = 80;
-            }
-            // Upon clicking, iterate through arrays and return selected character
-            Point Lclick;
-            bool valid_click = false;
             while (!valid_click)
             {
-                if (HangingPost.GetLastMouseLeftClick(out Lclick))
+                if (HangingPost.GetLastMouseLeftClick(out click))
                 {
                     for (int i = 0; i < 26; i++)
                     {
-                        if (Lclick.X > xmin_coord[i] && Lclick.X < xmax_coord[i] && Lclick.Y > ymin_coord[i] && Lclick.Y < ymax_coord[i])
+                        int xmin = button[i].xMin_coord;
+                        int xmax = button[i].xMax_coord;
+                        int ymin = button[i].yMin_coord;
+                        int ymax = button[i].yMax_coord;
+                        if (click.X > xmin && click.X < xmax && click.Y > ymin && click.Y < ymax)
                         {
-                            HangingPost.AddLine(xmin_coord[i], ymin_coord[i], xmax_coord[i], ymax_coord[i], Color.Red, 2);
-                            HangingPost.AddLine(xmax_coord[i], ymin_coord[i], xmin_coord[i], ymax_coord[i], Color.Red, 2);
+                            HangingPost.AddLine(xmin, ymin, xmax, ymax, Color.Red, 2);
+                            HangingPost.AddLine(xmax, ymin, xmin, ymax, Color.Red, 2);
                             HangingPost.Render();
-                            selection = letter[i];
+                            selection = button[i].alpha;
                             valid_click = true;
                         }
                     }
                 }
-
             }
             return selection;
         }
