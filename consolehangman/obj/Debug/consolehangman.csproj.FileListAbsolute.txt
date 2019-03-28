@@ -6,3 +6,11 @@ C:\Users\Ronny\Desktop\CNT HANGMAN 2 NEW\consolehangman\consolehangman\obj\Debug
 C:\Users\Ronny\Desktop\CNT HANGMAN 2 NEW\consolehangman\consolehangman\obj\Debug\consolehangman.csproj.CopyComplete
 C:\Users\Ronny\Desktop\CNT HANGMAN 2 NEW\consolehangman\consolehangman\obj\Debug\consolehangman.exe
 C:\Users\Ronny\Desktop\CNT HANGMAN 2 NEW\consolehangman\consolehangman\obj\Debug\consolehangman.pdb
+C:\Users\Ronny\Desktop\GitHub repos\CNT-Hangman\consolehangman\bin\Debug\consolehangman.exe.config
+C:\Users\Ronny\Desktop\GitHub repos\CNT-Hangman\consolehangman\bin\Debug\consolehangman.exe
+C:\Users\Ronny\Desktop\GitHub repos\CNT-Hangman\consolehangman\bin\Debug\consolehangman.pdb
+C:\Users\Ronny\Desktop\GitHub repos\CNT-Hangman\consolehangman\obj\Debug\consolehangman.csprojAssemblyReference.cache
+C:\Users\Ronny\Desktop\GitHub repos\CNT-Hangman\consolehangman\obj\Debug\consolehangman.csproj.CoreCompileInputs.cache
+C:\Users\Ronny\Desktop\GitHub repos\CNT-Hangman\consolehangman\obj\Debug\consolehangman.csproj.CopyComplete
+C:\Users\Ronny\Desktop\GitHub repos\CNT-Hangman\consolehangman\obj\Debug\consolehangman.exe
+C:\Users\Ronny\Desktop\GitHub repos\CNT-Hangman\consolehangman\obj\Debug\consolehangman.pdb
