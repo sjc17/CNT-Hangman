@@ -18,7 +18,7 @@ namespace consolehangman
 
             // Get movie title
             string Title = MovieAPI.GetWord();
-            System.Threading.Thread.Sleep(1000);        //Add delay to let API get proper movie title
+            //System.Threading.Thread.Sleep(1000);        //Add delay to let API get proper movie title
 
             /* INSERT TEST MOVIE TITLE HERE **
             //string test = "Pirates of the Carribean: Curse of the Black Pearl";
