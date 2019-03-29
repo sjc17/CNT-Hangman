@@ -38,18 +38,26 @@ namespace consolehangman
             {
                 char user_selection = (SelectLetter(ref HangingPost));
                 Console.Write($"{user_selection}");
-                
-                //PROCESS CHAR METHOD
-                //Return bool? return counter for hanged man?
-                //WhatDoLetter(int user_selection, string Title, out bool goodletter, ref int counter?);
 
-                //DisplayLetters();
-                //DisplayHangedMan();
+                ////PROCESS CHAR METHOD
+                ////Return bool? return counter for hanged man?
+                //WhatDoLetter();
+
+                //if (goodguess)
+                //{
+                //    DisplayLetters();
+                //}
+                //else
+                //{
+                //    Drawings.DisplayHangedMan(ref HangingPost, counter, true);
+                //    counter++;
+                //}
+
             } while (!game_win || !game_over);
 
         }
 
-        //Declare Button class
+        // Declare Button class
         class Button
         {
             public char alpha { get; set; }
@@ -67,7 +75,7 @@ namespace consolehangman
             bool valid_click = false;
             int counter = 0;
             // Generate buttons
-            var button = new Button[26];    //create array of class Button
+            var button = new Button[26];                //create array of class Button
             for (int i = 0; i < 26; i++)
             {
                 button[i] = new Button();               //construct new Button for each element in array
@@ -114,6 +122,21 @@ namespace consolehangman
                 }
             }
             return selection;
+        }
+
+        // Letter Processing.....
+        static void WhatDoLetter(char letter, string word, out bool good_guess, out List<int> letter_indexes, ref int counter)
+        {
+            /* 
+             * Check if 'letter' has been guessed before
+             * If character 'letter' exists in 'word', then
+             * good_guess = true
+             * find all letter_indexes and put them into a list
+             */
+            good_guess = false;
+            int index = 0;
+            letter_indexes = new List<int>();
+            letter_indexes.Add(index);
         }
     }
 }

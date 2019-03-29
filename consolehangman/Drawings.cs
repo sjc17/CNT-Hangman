@@ -88,21 +88,31 @@ namespace consolehangman
             Point click;
 
             HangingPost.Clear();
-            //Draw hanged man, can use this for reference later
-            HangingPost.AddCenteredEllipse(270, 215, 50, 50, Color.Black);      //head
-            HangingPost.AddLine(250, 215, 245, 285, Color.Black, 5);            //torso
-            HangingPost.AddLine(250, 215, 230, 305, Color.Black, 5);            //right arm
-            HangingPost.AddLine(250, 215, 270, 305, Color.Black, 5);            //left arm
-            HangingPost.AddLine(245, 285, 230, 365, Color.Black, 5);            //right leg
-            HangingPost.AddLine(245, 285, 265, 365, Color.Black, 5);            //left leg
+            ////Draw hanged man, can use this for reference later
+            //HangingPost.AddCenteredEllipse(270, 215, 50, 50, Color.Black);      //head
+            //HangingPost.AddLine(250, 215, 245, 285, Color.Black, 5);            //torso
+            //HangingPost.AddLine(250, 215, 230, 305, Color.Black, 5);            //right arm
+            //HangingPost.AddLine(250, 215, 270, 305, Color.Black, 5);            //left arm
+            //HangingPost.AddLine(245, 285, 230, 365, Color.Black, 5);            //right leg
+            //HangingPost.AddLine(245, 285, 265, 365, Color.Black, 5);            //left leg
 
-            ///Add peanut gallery
-            AddStickMan(60, 380, "Black", ref HangingPost, true);
-            AddStickMan(160, 420, "Black", ref HangingPost, true);
-            AddStickMan(300, 400, "Black", ref HangingPost, true);
-            AddStickMan(420, 420, "Black", ref HangingPost, true);
+            ////Add peanut gallery
+            //AddStickMan(60, 380, "Black", ref HangingPost, true);
+            //AddStickMan(160, 420, "Black", ref HangingPost, true);
+            //AddStickMan(300, 400, "Black", ref HangingPost, true);
+            //AddStickMan(420, 420, "Black", ref HangingPost, true);
 
-            HangingPost.AddText("Let's Hang Someone!", 36, 0, 0, 800, 100, Color.DarkRed);
+            //HangingPost.AddText("Let's Hang Someone!", 36, 0, 0, 800, 100, Color.DarkRed);
+
+            //PG VERSION of Hangman
+            HangingPost.AddCenteredEllipse(250, 245, 60, 60, Color.Empty, 5, Color.Black);      //head
+            HangingPost.AddLine(250, 275, 250, 350, Color.Black, 5);                            //torso
+            HangingPost.AddLine(250, 275, 220, 360, Color.Black, 5);                            //left arm
+            HangingPost.AddLine(250, 275, 280, 360, Color.Black, 5);                            //right arm
+            HangingPost.AddLine(250, 350, 230, 460, Color.Black, 5);                            //left leg
+            HangingPost.AddLine(250, 350, 270, 460, Color.Black, 5);                            //right leg
+
+            HangingPost.AddText("Let's Play Hangman!", 36, 0, 0, 800, 100, Color.DarkRed);
             HangingPost.AddText("Click anywhere to begin...", 12, 200, 500, 800, 100);
             HangingPost.Render();
 
@@ -114,11 +124,11 @@ namespace consolehangman
                 }
             }
             HangingPost.Clear();
-            // Idle peanut gallery
-            AddStickMan(60, 380, "Black", ref HangingPost, false);
-            AddStickMan(160, 420, "Black", ref HangingPost, false);
-            AddStickMan(300, 400, "Black", ref HangingPost, false);
-            AddStickMan(420, 420, "Black", ref HangingPost, false);
+            //// Idle peanut gallery
+            //AddStickMan(60, 380, "Black", ref HangingPost, false);
+            //AddStickMan(160, 420, "Black", ref HangingPost, false);
+            //AddStickMan(300, 400, "Black", ref HangingPost, false);
+            //AddStickMan(420, 420, "Black", ref HangingPost, false);
             HangingPost.Render();
         }
 
@@ -162,7 +172,7 @@ namespace consolehangman
                     }
                     else
                     {
-                        HangingPost.AddText(ch.ToString(), 22, xpos, ypos - 4, 24, 24, Color.Black);
+                        HangingPost.AddText(ch.ToString(), 24, xpos, ypos - 4, 24, 24, Color.Black);
                     }
                     xpos += 28;
                 }
@@ -301,6 +311,60 @@ namespace consolehangman
                 HangingPost.AddRectangle((a * 40) + 250, 50, 30, 30, Color.Gray);
                 HangingPost.AddText(((char)(a + 78)).ToString() + " ", 16, (a * 40) + 250, 50, 30, 30, Color.Black);
             }
+        }
+
+        // Draw Hanged Man 1 bodypart at a time
+        public static void DisplayHangedMan(ref CDrawer HangingPost, int body_count, bool PGversion)
+        {
+            if (PGversion)
+            {
+                switch (body_count)
+                {
+                    case 1:
+                        HangingPost.AddCenteredEllipse(250, 245, 60, 60, Color.Empty, 5, Color.Black);
+                        break;
+                    case 2:
+                        HangingPost.AddLine(250, 275, 250, 350, Color.Black, 5);
+                        break;
+                    case 3:
+                        HangingPost.AddLine(250, 275, 220, 360, Color.Black, 5);
+                        break;
+                    case 4:
+                        HangingPost.AddLine(250, 275, 280, 360, Color.Black, 5);
+                        break;
+                    case 5:
+                        HangingPost.AddLine(250, 350, 230, 460, Color.Black, 5);
+                        break;
+                    case 6:
+                        HangingPost.AddLine(250, 350, 270, 460, Color.Black, 5);
+                        break;
+                }
+            }
+            else
+            {
+                switch (body_count)
+                {
+                    case 1:
+                        HangingPost.AddCenteredEllipse(270, 215, 50, 50, Color.Black);
+                        break;
+                    case 2:
+                        HangingPost.AddLine(250, 215, 245, 285, Color.Black, 5);
+                        break;
+                    case 3:
+                        HangingPost.AddLine(250, 215, 230, 305, Color.Black, 5);
+                        break;
+                    case 4:
+                        HangingPost.AddLine(250, 215, 270, 305, Color.Black, 5);
+                        break;
+                    case 5:
+                        HangingPost.AddLine(245, 285, 230, 365, Color.Black, 5);
+                        break;
+                    case 6:
+                        HangingPost.AddLine(245, 285, 265, 365, Color.Black, 5);
+                        break;
+                }
+            }
+            HangingPost.Render();
         }
     }
 }
