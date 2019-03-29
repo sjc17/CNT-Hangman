@@ -14,7 +14,10 @@ namespace consolehangman
         {
             bool game_win = false;
             bool game_over = false;
+            bool good_guess = false;
             int counter = 0;
+
+            List<int> letter_indexes = new List<int>();
 
             // Get movie title
             string Title = MovieAPI.GetWord();
@@ -37,23 +40,28 @@ namespace consolehangman
             do
             {
                 char user_selection = (SelectLetter(ref HangingPost));
-                Console.Write($"{user_selection}");
 
-                ////PROCESS CHAR METHOD
-                ////Return bool? return counter for hanged man?
-                //WhatDoLetter();
+                WhatDoLetter(user_selection, Title, out good_guess, out letter_indexes, ref counter);
 
-                //if (goodguess)
-                //{
-                //    DisplayLetters();
-                //}
-                //else
-                //{
-                //    Drawings.DisplayHangedMan(ref HangingPost, counter, true);
-                //    counter++;
-                //}
+                if (good_guess)
+                {
+                    //DisplayLetters();
+                }
+                else
+                {
+                    Drawings.DisplayHangedMan(ref HangingPost, counter, true);
+                    if (counter >= 6)
+                        game_over = true;
+                }
 
-            } while (!game_win || !game_over);
+            } while (!game_win && !game_over);
+
+            if (game_win)
+                Drawings.DrawVictoryScreen(ref HangingPost);
+            if (game_over)
+                Drawings.DrawLoserScreen(ref HangingPost);
+
+            Console.Read();
 
         }
 
@@ -127,16 +135,26 @@ namespace consolehangman
         // Letter Processing.....
         static void WhatDoLetter(char letter, string word, out bool good_guess, out List<int> letter_indexes, ref int counter)
         {
-            /* 
-             * Check if 'letter' has been guessed before
-             * If character 'letter' exists in 'word', then
-             * good_guess = true
-             * find all letter_indexes and put them into a list
-             */
+            word = word.ToUpper();
             good_guess = false;
-            int index = 0;
             letter_indexes = new List<int>();
-            letter_indexes.Add(index);
+            foreach (char ch in word)
+            {
+                int index = 0;
+                if (ch == letter)
+                {
+                    good_guess = true;
+                    index = word.IndexOf(ch);
+                    letter_indexes.Add(index);
+                }
+                else
+                {
+                    good_guess = false;
+                    counter++;
+                    break;
+                }
+            }
+            
         }
     }
 }

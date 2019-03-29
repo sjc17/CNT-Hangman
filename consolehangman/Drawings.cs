@@ -366,5 +366,17 @@ namespace consolehangman
             }
             HangingPost.Render();
         }
+
+        public static void DrawVictoryScreen(ref CDrawer HangingPost)
+        {
+            HangingPost.AddText("YOU WIN", 60, Color.Magenta);
+            HangingPost.Render();
+        }
+
+        public static void DrawLoserScreen(ref CDrawer HangingPost)
+        {
+            HangingPost.AddText("YOU LOSE", 60, Color.DarkRed);
+            HangingPost.Render();
+        }
     }
 }
