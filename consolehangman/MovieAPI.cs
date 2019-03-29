@@ -18,8 +18,7 @@ namespace consolehangman
             RootObject resp;
             movieJson = GetJson().Result;
             resp = JsonConvert.DeserializeObject<RootObject>(movieJson);
-            string Title = resp.results[rng.Next(0, 20)].title;
-            return Title;
+            return Title = resp.results[rng.Next(0, 20)].title;
         }
         private static async Task<string> GetJson()
         {
